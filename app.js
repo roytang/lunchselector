@@ -7,6 +7,6 @@ app.get('/', (req, res) => {
 	res.json({ text: 'Hello, world!' });
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
 	console.log('Example app listening on port 3000!');
 });
