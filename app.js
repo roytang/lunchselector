@@ -13,13 +13,33 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 	let text = req.body.text || '';
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
-	let index = Math.floor(Math.random() * options.length);
-	let randomOption = options[index];
-	console.log(`DEBUG: got post on '/', options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
-	res.json({
-		'response_type': 'in_channel',
-	    'text': `Noppa valitsee: ${randomOption}`
-	});
+
+	switch (options.length) {
+	case 0:
+		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
+		res.json({
+			'response_type': 'in_channel',
+			'text': 'Ei löytynyt arvottavaa.'
+		});
+		break;
+	case 1:
+		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
+		res.json({
+			'response_type': 'in_channel',
+			'text': 'Tarvitseeko tuota jotenkin arpoa?'
+		});
+		break;
+	case default:
+		let index = Math.floor(Math.random() * options.length);
+		let randomOption = options[index];
+		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
+		res.json({
+			'response_type': 'in_channel',
+			'text': `Noppa valitsee: ${randomOption}`
+		});
+		break;
+	}
+
 });
 
 app.listen(port, () => {
