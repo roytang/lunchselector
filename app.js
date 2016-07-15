@@ -29,7 +29,7 @@ app.post('/', (req, res) => {
 			'text': 'Tarvitseeko tuota jotenkin arpoa?'
 		});
 		break;
-	case default:
+	default:
 		let index = Math.floor(Math.random() * options.length);
 		let randomOption = options[index];
 		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
