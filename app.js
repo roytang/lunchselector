@@ -6,6 +6,24 @@ let port = process.env.PORT || 3000;
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let zeroLengthAnswers = [
+	'Ei löytynyt arvottavaa.',
+	'Vastaus on Kanada!',
+	'Älä ny jaksa taas.'
+];
+
+let oneLengthAnswers = [
+	'Tarvitseeko tuota jotenkin arpoa?',
+	'Saa jotain vaihtoehtojakin antaa.',
+	'Ei ainakaan toi.'
+];
+
+let selectRandomFrom = function(arr) {
+	let index = Math.floor(Math.random() * arr.length);
+	let randomOption = arr[index];
+	return [index, randomOption];
+};
+
 app.get('/', (req, res) => {
 	res.json({ text: 'Hello, world!' });
 });
@@ -17,21 +35,22 @@ app.post('/', (req, res) => {
 	switch (options.length) {
 	case 0:
 		console.log(`DEBUG: options: ${options}`);
+		let [index, responseText] = selectRandomFrom(zeroLengthAnswers);
 		res.json({
 			'response_type': 'in_channel',
-			'text': 'Ei löytynyt arvottavaa.'
+			'text': responseText
 		});
 		break;
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
+		let [index, responseText] = selectRandomFrom(oneLengthAnswers);
 		res.json({
 			'response_type': 'in_channel',
-			'text': 'Tarvitseeko tuota jotenkin arpoa?'
+			'text': responseText
 		});
 		break;
 	default:
-		let index = Math.floor(Math.random() * options.length);
-		let randomOption = options[index];
+		let [index, randomOption] = selectRandomFrom(options);
 		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 		res.json({
 			'response_type': 'in_channel',
