@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 	let text = req.body.text || '';
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
-	let index = Math.floor(Math.random * options.length);
+	let index = Math.floor(Math.random() * options.length);
 	let randomOption = options[index];
 	console.log(`DEBUG: got post on '/', options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 	res.json({
