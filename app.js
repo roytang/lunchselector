@@ -35,7 +35,7 @@ app.post('/', (req, res) => {
 	switch (options.length) {
 	case 0:
 		console.log(`DEBUG: options: ${options}`);
-		let [index, responseText] = selectRandomFrom(zeroLengthAnswers);
+		var [index, responseText] = selectRandomFrom(zeroLengthAnswers);
 		res.json({
 			'response_type': 'in_channel',
 			'text': responseText
@@ -43,14 +43,14 @@ app.post('/', (req, res) => {
 		break;
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
-		let [index, responseText] = selectRandomFrom(oneLengthAnswers);
+		var [index, responseText] = selectRandomFrom(oneLengthAnswers);
 		res.json({
 			'response_type': 'in_channel',
 			'text': responseText
 		});
 		break;
 	default:
-		let [index, randomOption] = selectRandomFrom(options);
+		var [index, randomOption] = selectRandomFrom(options);
 		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 		res.json({
 			'response_type': 'in_channel',
