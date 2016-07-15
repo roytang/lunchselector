@@ -16,14 +16,14 @@ app.post('/', (req, res) => {
 
 	switch (options.length) {
 	case 0:
-		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
+		console.log(`DEBUG: options: ${options}`);
 		res.json({
 			'response_type': 'in_channel',
 			'text': 'Ei löytynyt arvottavaa.'
 		});
 		break;
 	case 1:
-		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
+		console.log(`DEBUG: options: ${options}`);
 		res.json({
 			'response_type': 'in_channel',
 			'text': 'Tarvitseeko tuota jotenkin arpoa?'
