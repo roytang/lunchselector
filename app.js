@@ -13,6 +13,9 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 	let text = req.body.text;
 	console.log(`DEBUG: got post on '/', text: ${text}`);
+	res.json({
+	    text
+	});
 });
 
 app.listen(port, () => {
