@@ -17,7 +17,8 @@ app.post('/', (req, res) => {
 	let randomOption = options[index];
 	console.log(`DEBUG: got post on '/', options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 	res.json({
-	    text: randomOption
+		responseType: 'in_channel',
+	    text: `Noppa valitsee: ${randomOption}`
 	});
 });
 
