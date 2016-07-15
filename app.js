@@ -15,7 +15,7 @@ app.post('/', (req, res) => {
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
 	let index = Math.floor(Math.random * options.length);
 	let randomOption = options[index];
-	console.log(`DEBUG: got post on '/', options: ${options}, randomOption: ${randomOption}`);
+	console.log(`DEBUG: got post on '/', options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 	res.json({
 	    text: randomOption
 	});
