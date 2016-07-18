@@ -64,6 +64,8 @@ app.post('/', (req, res) => {
 
 });
 
-app.listen(port, () => {
-	console.log(`Slack randomizer is now running on port ${port}!`);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+	console.log(`Slack randomizer is now running on port ${PORT}!`);
 });
