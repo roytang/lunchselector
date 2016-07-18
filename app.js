@@ -1,22 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const config = require('config');
 
 // Feel free to change these =)
-let zeroLengthAnswers = [
-	'Ei löytynyt arvottavaa.',
-	'Vastaus on Kanada!',
-	'Älä ny jaksa taas.'
-];
-let oneLengthAnswers = [
-	'Tarvitseeko tuota jotenkin arpoa?',
-	'Saa jotain vaihtoehtojakin antaa.',
-	'Ei ainakaan toi.'
-];
+const zeroLengthAnswers = config.get('zeroLengthAnswers');
+const oneLengthAnswers = config.get('oneLengthAnswers');
 
-// CHANGE THESE TO YOUR TEAM IDS
-const applicationToken = '';
-const applicationTeamId = '';
+const applicationToken = config.get('applicationToken');
+const applicationTeamId = config.get('applicationTeamId');
 
 let validateRequest = function({ token, team_id } = {}) {
 	if (!token || !team_id) {

@@ -1,0 +1,17 @@
+{
+  // CHANGE THESE TO YOUR TEAM IDS
+  "applicationToken": "",
+  "applicationTeamId": "",
+
+  // Feel free to change these =)
+  "zeroLengthAnswers": [
+    "Ei löytynyt arvottavaa.",
+    "Vastaus on Kanada!",
+    "Älä ny jaksa taas."
+  ],
+  "oneLengthAnswers": [
+    "Tarvitseeko tuota jotenkin arpoa?",
+    "Saa jotain vaihtoehtojakin antaa.",
+    "Ei ainakaan toi."
+  ]
+}
