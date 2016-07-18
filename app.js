@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
+	console.log(req.body);
 	let text = req.body.text || '';
-	console.log(text);
 
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
 	let index;
