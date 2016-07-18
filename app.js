@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-let port = process.env.PORT || 3000;
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
-
 let zeroLengthAnswers = [
 	'Ei löytynyt arvottavaa.',
 	'Vastaus on Kanada!',
@@ -24,33 +20,40 @@ let selectRandomFrom = function(arr) {
 	return [index, randomOption];
 };
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
-	res.json({ text: 'Hello, world!' });
+	res.json({ 'guide': `Post to '/', and add options as whitespace separated strings into post data, such as text='option1 option 2 option3'` });
 });
 
 app.post('/', (req, res) => {
 	let text = req.body.text || '';
+	console.log(text);
+
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
+	let index;
+	let randomOption;
 
 	switch (options.length) {
 	case 0:
 		console.log(`DEBUG: options: ${options}`);
-		var [index, responseText] = selectRandomFrom(zeroLengthAnswers);
+		([index, randomOption] = selectRandomFrom(zeroLengthAnswers));
 		res.json({
 			'response_type': 'in_channel',
-			'text': responseText
+			'text': randomOption
 		});
 		break;
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
-		var [index, responseText] = selectRandomFrom(oneLengthAnswers);
+		([index, randomOption] = selectRandomFrom(oneLengthAnswers));
 		res.json({
 			'response_type': 'in_channel',
-			'text': responseText
+			'text': randomOption
 		});
 		break;
 	default:
-		var [index, randomOption] = selectRandomFrom(options);
+		([index, randomOption] = selectRandomFrom(options));
 		console.log(`DEBUG: options: ${options}, randomIndex: ${index}, randomOption: ${randomOption}`);
 		res.json({
 			'response_type': 'in_channel',
@@ -62,5 +65,5 @@ app.post('/', (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}!`);
+	console.log(`Slack randomizer is now running on port ${port}!`);
 });
