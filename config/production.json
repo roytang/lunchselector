@@ -1,9 +1,7 @@
 {
-  // CHANGE THESE TO YOUR TEAM IDS
   "applicationToken": "",
   "applicationTeamId": "",
 
-  // Feel free to change these =)
   "zeroLengthAnswers": [
     "Ei löytynyt arvottavaa.",
     "Vastaus on Kanada!",
