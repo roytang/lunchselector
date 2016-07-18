@@ -2,17 +2,29 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+// Feel free to change these =)
 let zeroLengthAnswers = [
 	'Ei löytynyt arvottavaa.',
 	'Vastaus on Kanada!',
 	'Älä ny jaksa taas.'
 ];
-
 let oneLengthAnswers = [
 	'Tarvitseeko tuota jotenkin arpoa?',
 	'Saa jotain vaihtoehtojakin antaa.',
 	'Ei ainakaan toi.'
 ];
+
+// CHANGE THESE TO YOUR TEAM IDS
+const applicationToken = '';
+const applicationTeamId = '';
+
+let validateRequest = function({ token, team_id } = {}) {
+	if (!token || !team_id) {
+		return false;
+	}
+
+	return token === applicationToken && team_id === applicationTeamId;
+};
 
 let selectRandomFrom = function(arr) {
 	let index = Math.floor(Math.random() * arr.length);
@@ -23,12 +35,14 @@ let selectRandomFrom = function(arr) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-	res.json({ 'guide': `Post to '/', and add options as whitespace separated strings into post data, such as text='option1 option 2 option3'` });
-});
-
 app.post('/', (req, res) => {
 	console.log(req.body);
+
+	if (!validateRequest(req.body)) {
+		res.status(403).json({ 'error': 'Unauthorized request' });
+		return;
+	}
+
 	let text = req.body.text || '';
 
 	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
@@ -46,11 +60,20 @@ app.post('/', (req, res) => {
 		break;
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
-		([index, randomOption] = selectRandomFrom(oneLengthAnswers));
-		res.json({
-			'response_type': 'in_channel',
-			'text': randomOption
-		});
+
+		if (options[0].toLowerCase() === 'help') {
+			let helpText = `Add options as whitespace separated strings, such as: /random option1 option 2 option3`;
+			res.json({
+				'response_type': 'ephemeral',
+				'text': helpText
+			});
+		} else {
+			([index, randomOption] = selectRandomFrom(oneLengthAnswers));
+			res.json({
+				'response_type': 'in_channel',
+				'text': randomOption
+			});
+		}
 		break;
 	default:
 		([index, randomOption] = selectRandomFrom(options));
