@@ -7,8 +7,8 @@ const config = require('config');
 const zeroLengthAnswers = config.get('zeroLengthAnswers');
 const oneLengthAnswers = config.get('oneLengthAnswers');
 
-const applicationToken = config.get('applicationToken');
-const applicationTeamId = config.get('applicationTeamId');
+const applicationToken = process.env.APPLICATION_TOKEN;
+const applicationTeamId = process.env.APPLICATION_TEAM_ID;
 
 let validateRequest = function({ token, team_id } = {}) {
 	if (!token || !team_id) {
