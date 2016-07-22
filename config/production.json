@@ -1,13 +1,11 @@
 {
-  "zeroLengthAnswers": [
-    "Ei löytynyt arvottavaa.",
-    "Vastaus on Kanada!",
-    "Älä ny jaksa taas."
-  ],
   "oneLengthAnswers": [
     "Tarvitseeko tuota jotenkin arpoa?",
     "Saa jotain vaihtoehtojakin antaa.",
-    "Ei ainakaan toi."
+    "Ei ainakaan toi.",
+	"Ei löytynyt arvottavaa.",
+	"Vastaus on Kanada!",
+	"Älä ny jaksa taas."
 ],
   "eightball": [
     "What kind of an asshole question is that?",

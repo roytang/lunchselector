@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const config = require('config');
 
 // Feel free to change these =)
-const zeroLengthAnswers = config.get('zeroLengthAnswers');
 const oneLengthAnswers = config.get('oneLengthAnswers');
 const eightball = config.get('eightball');
 
@@ -49,25 +48,19 @@ app.post('/', (req, res) => {
 	let randomOption;
 
 	switch (options.length) {
-	case 0:
+	case 0: {
 		console.log(`DEBUG: options: ${options}`);
-		([index, randomOption] = selectRandomFrom(zeroLengthAnswers));
+		let helpText = 'Add options as whitespace separated strings, such as: /random option1 option 2 option3';
 		res.json({
-			'response_type': 'in_channel',
-			'text': randomOption
+			'response_type': 'ephemeral',
+			'text': helpText
 		});
 		break;
+	}
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
 
-		if (options[0] === 'help') {
-			let helpText = `Add options as whitespace separated strings, such as: /random option1 option 2 option3`;
-			res.json({
-				'response_type': 'ephemeral',
-				'text': helpText
-			});
-		}
-		else if (options[0] === 'eightball') {
+		if (options[0] === 'eightball') {
 			([index, randomOption] = selectRandomFrom(eightball));
 			res.json({
 				'response_type': 'in_channel',
