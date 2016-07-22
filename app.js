@@ -28,17 +28,23 @@ let selectRandomFrom = function(arr) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', (req, res) => {
+// authentication middleware
+app.use((req, res, next) => {
 	console.log(req.body);
 
-	if (!validateRequest(req.body)) {
-		res.status(403).json({ 'error': 'Unauthorized request' });
-		return;
+	if (validateRequest(req.body)) {
+		return next();
 	}
 
+	return res.status(403).json({ 'error': 'Unauthorized request' });
+});
+
+app.post('/', (req, res) => {
 	let text = req.body.text || '';
 
-	let options = text.trim().split(' ').filter((option) => { return option !== ''; });
+	let arr = text.trim().split(' ').filter((option) => { return option !== ''; }).map((option) => { return options.toLowerCase(); });
+	// ES6 way to filter out duplicate strings
+	let options = [...new Set(arr)];
 	let index;
 	let randomOption;
 
@@ -54,14 +60,14 @@ app.post('/', (req, res) => {
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
 
-		if (options[0].toLowerCase() === 'help') {
+		if (options[0] === 'help') {
 			let helpText = `Add options as whitespace separated strings, such as: /random option1 option 2 option3`;
 			res.json({
 				'response_type': 'ephemeral',
 				'text': helpText
 			});
 		}
-		else if (options[0].toLowerCase() === 'eightball') {
+		else if (options[0] === 'eightball') {
 			([index, randomOption] = selectRandomFrom(eightball));
 			res.json({
 				'response_type': 'in_channel',
