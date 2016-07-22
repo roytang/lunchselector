@@ -48,15 +48,13 @@ app.post('/', (req, res) => {
 	let randomOption;
 
 	switch (options.length) {
-	case 0: {
+	case 0:
 		console.log(`DEBUG: options: ${options}`);
-		let helpText = 'Add options as whitespace separated strings, such as: /random option1 option 2 option3';
 		res.json({
 			'response_type': 'ephemeral',
-			'text': helpText
+			'text': 'Add options as whitespace separated strings, such as: /random option1 option 2 option3'
 		});
 		break;
-	}
 	case 1:
 		console.log(`DEBUG: options: ${options}`);
 
