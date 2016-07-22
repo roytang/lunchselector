@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 app.post('/', (req, res) => {
 	let text = req.body.text || '';
 
-	let arr = text.trim().split(' ').filter((option) => { return option !== ''; }).map((option) => { return options.toLowerCase(); });
+	let arr = text.trim().split(' ').filter((option) => { return option !== ''; }).map((option) => { return option.toLowerCase(); });
 	// ES6 way to filter out duplicate strings
 	let options = [...new Set(arr)];
 	let index;
@@ -90,7 +90,6 @@ app.post('/', (req, res) => {
 		});
 		break;
 	}
-
 });
 
 const PORT = process.env.PORT || 3000;
