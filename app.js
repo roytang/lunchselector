@@ -6,6 +6,7 @@ const config = require('config');
 // Feel free to change these =)
 const zeroLengthAnswers = config.get('zeroLengthAnswers');
 const oneLengthAnswers = config.get('oneLengthAnswers');
+const eightball = config.get('eightball');
 
 const applicationToken = process.env.APPLICATION_TOKEN;
 const applicationTeamId = process.env.APPLICATION_TEAM_ID;
@@ -58,6 +59,13 @@ app.post('/', (req, res) => {
 			res.json({
 				'response_type': 'ephemeral',
 				'text': helpText
+			});
+		}
+		else if (options[0].toLowerCase() === 'eightball') {
+			([index, randomOption]) = selectRandomFrom(eightball);
+			res.json({
+				'response_type': 'in_channel',
+				'text': randomOption
 			});
 		} else {
 			([index, randomOption] = selectRandomFrom(oneLengthAnswers));
