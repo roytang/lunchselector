@@ -62,7 +62,7 @@ app.post('/', (req, res) => {
 			});
 		}
 		else if (options[0].toLowerCase() === 'eightball') {
-			([index, randomOption]) = selectRandomFrom(eightball);
+			([index, randomOption] = selectRandomFrom(eightball));
 			res.json({
 				'response_type': 'in_channel',
 				'text': randomOption
