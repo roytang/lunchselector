@@ -1,3 +1,11 @@
+# Stuff
+
+A slackbot to select a random place for lunch
+
+This repo is based on https://github.com/aatkin/slack-randomizer (it's not a fork because I didn't think I'd be pushing it back to git when I first made it)
+
+The list of choices is under config/production.json under "eightball"
+
 # slack-randomizer (for Heroku)
 
 Returns random option from given array of strings separated by white-space.
