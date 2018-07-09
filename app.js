@@ -46,7 +46,11 @@ app.post('/', (req, res) => {
 	let options = [...new Set(arr)];
 	let index;
 	let randomOption;
-
+	([index, randomOption] = selectRandomFrom(eightball));
+	res.json({
+		'response_type': 'in_channel',
+		'text': randomOption	
+	});
 	switch (options.length) {
 	case 0:
 		console.log(`DEBUG: options: ${options}`);
